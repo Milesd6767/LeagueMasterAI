@@ -11,7 +11,7 @@
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Inter, Arial, sans-serif;
+font-family:Arial,sans-serif;
 }
 
 body{
@@ -30,51 +30,67 @@ border-bottom:1px solid #222;
 
 .logo{
 font-size:28px;
-font-weight:700;
+font-weight:bold;
 color:#06B6D4;
 }
 
 .hero{
 padding:70px 20px;
 text-align:center;
-background:linear-gradient(to bottom,#111,#0A0A0A);
 }
 
 .hero h1{
-font-size:48px;
+font-size:45px;
 margin-bottom:15px;
 }
 
 .hero p{
 color:#aaa;
-font-size:18px;
 margin-bottom:25px;
 }
 
 .btn{
 background:#2563EB;
-padding:14px 30px;
 border:none;
-border-radius:12px;
+padding:14px 28px;
 color:white;
-font-weight:bold;
+border-radius:12px;
 cursor:pointer;
-transition:.3s;
-}
-
-.btn:hover{
-transform:translateY(-2px);
+font-weight:bold;
 }
 
 .section{
-padding:25px;
+padding:30px;
 max-width:1200px;
 margin:auto;
 }
 
 .section-title{
 margin-bottom:20px;
-font-size:28px;
+}
+
+.teams{
+display:none;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.team-card{
+background:#171717;
+padding:20px;
+border-radius:15px;
+cursor:pointer;
+border:2px solid transparent;
+transition:.3s;
+}
+
+.team-card:hover{
+border-color:#2563EB;
+}
+
+.selected{
+border-color:#06B6D4 !important;
+box-shadow:0 0 15px rgba(6,182,212,.4);
 }
 
 .cards{
@@ -86,53 +102,18 @@ gap:20px;
 .card{
 background:#171717;
 padding:20px;
-border-radius:18px;
-box-shadow:0 0 20px rgba(0,0,0,.2);
+border-radius:15px;
 }
 
 .metric{
-font-size:36px;
-font-weight:700;
+font-size:32px;
+font-weight:bold;
 color:#06B6D4;
 margin-top:10px;
 }
 
-.teams{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
-.team-card{
-background:#171717;
-padding:20px;
-border-radius:16px;
-cursor:pointer;
-border:2px solid transparent;
-transition:.3s;
-}
-
-.team-card:hover{
-border-color:#2563EB;
-}
-
-.selected{
-border-color:#06B6D4!important;
-box-shadow:0 0 20px rgba(6,182,212,.4);
-}
-
-.record{
-color:#aaa;
-margin:8px 0;
-}
-
-.players{
-font-size:14px;
-color:#ddd;
-}
-
 .trade-card{
-background:#1C2333;
+background:#1c2333;
 border-left:5px solid #06B6D4;
 padding:20px;
 border-radius:15px;
@@ -140,8 +121,12 @@ border-radius:15px;
 
 footer{
 text-align:center;
-padding:25px;
+padding:30px;
 color:#666;
+}
+
+.hidden{
+display:none;
 }
 
 </style>
@@ -155,9 +140,18 @@ color:#666;
 </header>
 
 <section class="hero">
+
 <h1>Your AI Fantasy Football Command Center</h1>
-<p>Analyze your roster. Find winning trades. Dominate your league.</p>
-<button class="btn" onclick="syncLeague()">Connect League</button>
+
+<p>
+Analyze your roster. Find better trades.
+Win more games.
+</p>
+
+<button class="btn" onclick="syncLeague()">
+🏈 Demo ESPN League Sync
+</button>
+
 </section>
 
 <section class="section">
@@ -168,58 +162,52 @@ color:#666;
 
 <div class="team-card" onclick="selectTeam(this,'Touchdown Kings')">
 <h3>🏆 Touchdown Kings</h3>
-<div class="record">Record: 4-1</div>
-<div>Overall: 91</div>
-<div class="players">
-Josh Allen • Bijan Robinson • CeeDee Lamb
-</div>
+<p>Record: 4-1</p>
+<p>Overall: 91</p>
+<p>Josh Allen • Bijan Robinson • CeeDee Lamb</p>
 </div>
 
 <div class="team-card" onclick="selectTeam(this,'Gridiron Giants')">
 <h3>⚡ Gridiron Giants</h3>
-<div class="record">Record: 3-2</div>
-<div>Overall: 87</div>
-<div class="players">
-Patrick Mahomes • Puka Nacua • Travis Kelce
-</div>
+<p>Record: 3-2</p>
+<p>Overall: 87</p>
+<p>Patrick Mahomes • Puka Nacua • Travis Kelce</p>
 </div>
 
 <div class="team-card" onclick="selectTeam(this,'Sunday Warriors')">
 <h3>🔥 Sunday Warriors</h3>
-<div class="record">Record: 5-0</div>
-<div>Overall: 94</div>
-<div class="players">
-Lamar Jackson • Ja'Marr Chase • Saquon Barkley
-</div>
+<p>Record: 5-0</p>
+<p>Overall: 94</p>
+<p>Lamar Jackson • Ja'Marr Chase • Saquon Barkley</p>
 </div>
 
 </div>
 
 </section>
 
-<section class="section">
+<section id="dashboard" class="section hidden">
 
 <h2 class="section-title">Dashboard</h2>
 
 <div class="cards">
 
 <div class="card">
-<div>League Rank</div>
+League Rank
 <div class="metric">#2</div>
 </div>
 
 <div class="card">
-<div>Playoff Odds</div>
+Playoff Odds
 <div class="metric">78%</div>
 </div>
 
 <div class="card">
-<div>Team Score</div>
+Team Score
 <div class="metric">91</div>
 </div>
 
 <div class="card">
-<div>Projected Finish</div>
+Projected Finish
 <div class="metric">2nd</div>
 </div>
 
@@ -227,7 +215,7 @@ Lamar Jackson • Ja'Marr Chase • Saquon Barkley
 
 </section>
 
-<section class="section">
+<section id="analyzer" class="section hidden">
 
 <h2 class="section-title">Team Analyzer</h2>
 
@@ -257,9 +245,9 @@ TE Grade
 
 </section>
 
-<section class="section">
+<section id="tradeFinder" class="section hidden">
 
-<h2 class="section-title">AI Recommendation</h2>
+<h2 class="section-title">Trade Finder</h2>
 
 <div class="trade-card">
 
@@ -267,54 +255,134 @@ TE Grade
 
 <br>
 
-<p>
-Receive:
-<strong>Garrett Wilson</strong>
-</p>
+<p><strong>Receive:</strong> Garrett Wilson</p>
 
-<p>
-Send:
-<strong>James Cook</strong>
-</p>
+<p><strong>Send:</strong> James Cook</p>
+
+<br>
+
+<p><strong>Confidence:</strong> 82%</p>
 
 <br>
 
 <p>
-Confidence Score:
-<strong>82%</strong>
-</p>
-
-<br>
-
-<p>
-Reason:
-Your roster already has strong RB depth.
-Adding Garrett Wilson improves WR consistency and raises playoff upside.
+Your team has strong RB depth but needs another
+reliable WR for the fantasy playoffs.
 </p>
 
 </div>
 
 </section>
 
+<section class="section">
+
+<h2 class="section-title">🔥 LeagueMasterAI Premium</h2>
+
+<div class="trade-card">
+
+<h3>Connect Your Real ESPN League</h3>
+
+<br>
+
+<p>
+You're currently using Demo Mode.
+</p>
+
+<br>
+
+<p>✅ Real ESPN League Sync</p>
+<p>✅ Private League Support</p>
+<p>✅ AI Team Analysis</p>
+<p>✅ Advanced Trade Finder</p>
+<p>✅ Waiver Recommendations</p>
+<p>✅ Weekly Team Reports</p>
+
+<br>
+
+<button class="btn" onclick="premiumUpgrade()">
+Upgrade to Premium
+</button>
+
+</div>
+
+</section>
+
 <footer>
+
 LeagueMasterAI • Built for Fantasy Champions 🏈
+
 </footer>
 
 <script>
 
-function syncLeague(){
-alert("✅ League Synced Successfully!");
+function syncLeague() {
+
+const leagueUrl = prompt(
+"Paste your ESPN Fantasy League URL:"
+);
+
+if(!leagueUrl) return;
+
+const button = document.querySelector(".btn");
+
+button.innerText = "Syncing League...";
+button.disabled = true;
+
+setTimeout(() => {
+
+button.innerText = "✅ League Synced";
+
+document.querySelector(".teams").style.display = "grid";
+
+alert(
+"League Imported Successfully!\n\n" +
+"12 Teams Found\n" +
+"168 Players Imported\n\n" +
+"Select your team to continue."
+);
+
+}, 2000);
+
 }
 
-function selectTeam(element,team){
+function selectTeam(element, team){
 
 document.querySelectorAll(".team-card")
 .forEach(card => card.classList.remove("selected"));
 
 element.classList.add("selected");
 
-document.getElementById("selectedLabel")
-.innerText = "Managing: " + team;
+document.getElementById("selectedLabel").innerText =
+"Managing: " + team;
+
+document.getElementById("dashboard")
+.classList.remove("hidden");
+
+document.getElementById("analyzer")
+.classList.remove("hidden");
+
+document.getElementById("tradeFinder")
+.classList.remove("hidden");
+
+window.scrollTo({
+top: document.getElementById("dashboard").offsetTop,
+behavior: "smooth"
+});
+
+}
+
+function premiumUpgrade(){
+
+alert(
+"🚀 LeagueMasterAI Premium\n\n" +
+"Coming Soon!\n\n" +
+"Features:\n" +
+"• Real ESPN Sync\n" +
+"• Private League Support\n" +
+"• Trade Assistant\n" +
+"• Waiver Advisor\n" +
+"• Playoff Predictor"
+);
 
 }
 

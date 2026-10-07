@@ -6,7 +6,319 @@
 <title>LeagueMasterAI</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter, Arial, sans-serif;
+}
+
 body{
-  margin:0;
-  font-family:Arial,sans-serif;
-  background
+background:#0A0A0A;
+color:white;
+}
+
+header{
+background:#111;
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #222;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:#06B6D4;
+}
+
+.hero{
+padding:70px 20px;
+text-align:center;
+background:linear-gradient(to bottom,#111,#0A0A0A);
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:15px;
+}
+
+.hero p{
+color:#aaa;
+font-size:18px;
+margin-bottom:25px;
+}
+
+.btn{
+background:#2563EB;
+padding:14px 30px;
+border:none;
+border-radius:12px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-2px);
+}
+
+.section{
+padding:25px;
+max-width:1200px;
+margin:auto;
+}
+
+.section-title{
+margin-bottom:20px;
+font-size:28px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:#171717;
+padding:20px;
+border-radius:18px;
+box-shadow:0 0 20px rgba(0,0,0,.2);
+}
+
+.metric{
+font-size:36px;
+font-weight:700;
+color:#06B6D4;
+margin-top:10px;
+}
+
+.teams{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.team-card{
+background:#171717;
+padding:20px;
+border-radius:16px;
+cursor:pointer;
+border:2px solid transparent;
+transition:.3s;
+}
+
+.team-card:hover{
+border-color:#2563EB;
+}
+
+.selected{
+border-color:#06B6D4!important;
+box-shadow:0 0 20px rgba(6,182,212,.4);
+}
+
+.record{
+color:#aaa;
+margin:8px 0;
+}
+
+.players{
+font-size:14px;
+color:#ddd;
+}
+
+.trade-card{
+background:#1C2333;
+border-left:5px solid #06B6D4;
+padding:20px;
+border-radius:15px;
+}
+
+footer{
+text-align:center;
+padding:25px;
+color:#666;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">🏈 LeagueMasterAI</div>
+<div id="selectedLabel">No Team Selected</div>
+</header>
+
+<section class="hero">
+<h1>Your AI Fantasy Football Command Center</h1>
+<p>Analyze your roster. Find winning trades. Dominate your league.</p>
+<button class="btn" onclick="syncLeague()">Connect League</button>
+</section>
+
+<section class="section">
+
+<h2 class="section-title">Choose Your Team</h2>
+
+<div class="teams">
+
+<div class="team-card" onclick="selectTeam(this,'Touchdown Kings')">
+<h3>🏆 Touchdown Kings</h3>
+<div class="record">Record: 4-1</div>
+<div>Overall: 91</div>
+<div class="players">
+Josh Allen • Bijan Robinson • CeeDee Lamb
+</div>
+</div>
+
+<div class="team-card" onclick="selectTeam(this,'Gridiron Giants')">
+<h3>⚡ Gridiron Giants</h3>
+<div class="record">Record: 3-2</div>
+<div>Overall: 87</div>
+<div class="players">
+Patrick Mahomes • Puka Nacua • Travis Kelce
+</div>
+</div>
+
+<div class="team-card" onclick="selectTeam(this,'Sunday Warriors')">
+<h3>🔥 Sunday Warriors</h3>
+<div class="record">Record: 5-0</div>
+<div>Overall: 94</div>
+<div class="players">
+Lamar Jackson • Ja'Marr Chase • Saquon Barkley
+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<div>League Rank</div>
+<div class="metric">#2</div>
+</div>
+
+<div class="card">
+<div>Playoff Odds</div>
+<div class="metric">78%</div>
+</div>
+
+<div class="card">
+<div>Team Score</div>
+<div class="metric">91</div>
+</div>
+
+<div class="card">
+<div>Projected Finish</div>
+<div class="metric">2nd</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">Team Analyzer</h2>
+
+<div class="cards">
+
+<div class="card">
+QB Grade
+<div class="metric">A+</div>
+</div>
+
+<div class="card">
+RB Grade
+<div class="metric">A</div>
+</div>
+
+<div class="card">
+WR Grade
+<div class="metric">A-</div>
+</div>
+
+<div class="card">
+TE Grade
+<div class="metric">B+</div>
+</div>
+
+</div>
+
+</section>
+
+<section class="section">
+
+<h2 class="section-title">AI Recommendation</h2>
+
+<div class="trade-card">
+
+<h3>🤝 Suggested Trade</h3>
+
+<br>
+
+<p>
+Receive:
+<strong>Garrett Wilson</strong>
+</p>
+
+<p>
+Send:
+<strong>James Cook</strong>
+</p>
+
+<br>
+
+<p>
+Confidence Score:
+<strong>82%</strong>
+</p>
+
+<br>
+
+<p>
+Reason:
+Your roster already has strong RB depth.
+Adding Garrett Wilson improves WR consistency and raises playoff upside.
+</p>
+
+</div>
+
+</section>
+
+<footer>
+LeagueMasterAI • Built for Fantasy Champions 🏈
+</footer>
+
+<script>
+
+function syncLeague(){
+alert("✅ League Synced Successfully!");
+}
+
+function selectTeam(element,team){
+
+document.querySelectorAll(".team-card")
+.forEach(card => card.classList.remove("selected"));
+
+element.classList.add("selected");
+
+document.getElementById("selectedLabel")
+.innerText = "Managing: " + team;
+
+}
+
+</script>
+
+</body>
+</html>

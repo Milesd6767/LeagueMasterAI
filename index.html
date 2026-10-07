@@ -355,17 +355,138 @@ element.classList.add("selected");
 document.getElementById("selectedLabel").innerText =
 "Managing: " + team;
 
-document.getElementById("dashboard")
-.classList.remove("hidden");
+const dashboard = document.getElementById("dashboard");
 
-document.getElementById("analyzer")
-.classList.remove("hidden");
+dashboard.innerHTML = `
 
-document.getElementById("tradeFinder")
-.classList.remove("hidden");
+<h2 class="section-title">🏈 ${team} Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+League Rank
+<div class="metric">#2</div>
+</div>
+
+<div class="card">
+Playoff Odds
+<div class="metric">78%</div>
+</div>
+
+<div class="card">
+Overall Grade
+<div class="metric">A</div>
+</div>
+
+<div class="card">
+Projected Finish
+<div class="metric">2nd</div>
+</div>
+
+</div>
+
+<br><br>
+
+<h2 class="section-title">⭐ Starting Lineup</h2>
+
+<div class="cards">
+
+<div class="card">Josh Allen<br><br>QB • Grade A+</div>
+
+<div class="card">Bijan Robinson<br><br>RB • Grade A</div>
+
+<div class="card">James Cook<br><br>RB • Grade A-</div>
+
+<div class="card">CeeDee Lamb<br><br>WR • Grade A+</div>
+
+<div class="card">Mike Evans<br><br>WR • Grade B+</div>
+
+<div class="card">Sam LaPorta<br><br>TE • Grade A</div>
+
+</div>
+
+<br><br>
+
+<h2 class="section-title">✅ Team Strengths</h2>
+
+<div class="trade-card">
+
+Elite quarterback play.
+
+<br><br>
+
+Strong running back depth.
+
+<br><br>
+
+High weekly scoring upside.
+
+<br><br>
+
+Excellent starting lineup.
+
+</div>
+
+<br><br>
+
+<h2 class="section-title">⚠️ Team Weaknesses</h2>
+
+<div class="trade-card">
+
+Needs another reliable WR.
+
+<br><br>
+
+Weak bench depth.
+
+<br><br>
+
+Limited injury protection.
+
+</div>
+
+<br><br>
+
+<h2 class="section-title">🤝 Suggested Trades</h2>
+
+<div class="trade-card">
+
+<h3>Trade #1</h3>
+
+<br>
+
+Receive:
+<strong>Garrett Wilson</strong>
+
+<br><br>
+
+Send:
+<strong>James Cook</strong>
+
+<br><br>
+
+Confidence:
+<strong>82%</strong>
+
+<br><br>
+
+Reason:
+Improve WR depth.
+
+</div>
+
+</div>
+
+`;
+
+dashboard.classList.remove("hidden");
+
+document.getElementById("analyzer").classList.add("hidden");
+
+document.getElementById("tradeFinder").classList.add("hidden");
 
 window.scrollTo({
-top: document.getElementById("dashboard").offsetTop,
+top: dashboard.offsetTop,
 behavior: "smooth"
 });
 
